@@ -5,11 +5,17 @@
  */
 package com.mycompany.tcc.model;
 
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -42,21 +48,55 @@ public class OS{
     private String observacao;
     
     
+    
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "ospendencia",
+            joinColumns = @JoinColumn(name = "cod_os_serial",referencedColumnName = "cod_os_serial"),
+            inverseJoinColumns = @JoinColumn(name = "cod_pendencia_serial", referencedColumnName = "cod_pendencia_serial" ))
+    private List<Pendencia> pendencias;
 
+    
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "osocorrenciaservico",
+            joinColumns = @JoinColumn(name = "cod_os_serial",referencedColumnName = "cod_os_serial"),
+            inverseJoinColumns = @JoinColumn(name = "cod_ocorrencia_serial", referencedColumnName = "cod_ocorrencia_serial" ))
+    private List<Ocorrencia> ocorrencias;
+    
     public OS(){}
 
-    public OS(Integer cod_os_serial, String cod_os_nominal, Integer cod_setor_serial, Integer cod_TipoManutencao_serial, Integer prioriadade, String situacao, String observacao) {
+    public OS(Integer cod_os_serial, String cod_os_nominal, Integer cod_setor_serial, Integer cod_TipoManutencao_serial, Integer prioriadade, String situacao, String observacao, List<Pendencia> pendencia, List<Ocorrencia> ocorrencias) {
         this.cod_os_serial = cod_os_serial;
         this.cod_os_nominal = cod_os_nominal;
         this.cod_setor_serial = cod_setor_serial;
         this.cod_TipoManutencao_serial = cod_TipoManutencao_serial;
         this.prioriadade = prioriadade;
         this.situacao = situacao;
-       // this.observacao = observacao;
+        this.observacao = observacao;
+        this.pendencias = pendencia;
+        this.ocorrencias = ocorrencias;
+        
     }
+
+    public List<Ocorrencia> getOcorrencias() {
+        return ocorrencias;
+    }
+
+    public void setOcorrencias(List<Ocorrencia> ocorrencias) {
+        this.ocorrencias = ocorrencias;
+    }
+
     
     
     
+    
+    public List<Pendencia> getPendencias() {
+        return pendencias;
+    }
+
+    public void setPendencias(List<Pendencia> pendencias) {
+        this.pendencias = pendencias;
+    }
+
     
 
     public Integer getCod_os_serial() {
@@ -115,9 +155,8 @@ public class OS{
        this.observacao = observacao;
     }
 
-   
     
-    
+  
     
     
 }

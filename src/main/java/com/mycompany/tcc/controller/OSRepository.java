@@ -6,11 +6,12 @@
 package com.mycompany.tcc.controller;
 
 import com.mycompany.tcc.model.OS;
+
 import java.util.List;
-import org.jboss.logging.Param;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 /**
  *
@@ -18,10 +19,14 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 public interface OSRepository extends JpaRepository<OS,String>{
 
-    //public List<OS> findByObservacao();
+    //List<OS> findBySetor(Integer cod_setor_serial);
+           
+           
     @Query("select o from OS o where o.observacao like concat('%',:observacao,'%')") 
     List<OS> findByVersion(String version);
     
-   
+    @Query("select o from OS o where o.cod_setor_serial = :cod_setor_serial and o.observacao like concat('%',:observacao,'%')")
+    List<OS> findBySetor(Integer cod_setor_serial,String observacao);
+    
     
 }
