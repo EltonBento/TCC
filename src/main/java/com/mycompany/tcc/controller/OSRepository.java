@@ -25,8 +25,8 @@ public interface OSRepository extends JpaRepository<OS,String>{
     @Query("select o from OS o where o.observacao like concat('%',:observacao,'%')") 
     List<OS> findByVersion(String version);
     
-    @Query("select o from OS o where o.cod_setor_serial = :cod_setor_serial and o.observacao like concat('%',:observacao,'%')")
-    List<OS> findBySetor(Integer cod_setor_serial,String observacao);
+    //@Query("select o from OS o where o.cod_setor_serial = :cod_setor_serial and o.observacao like concat('%',:observacao,'%')")
+    //List<OS> findBySetor(Integer cod_setor_serial,String observacao);
     
     
 }

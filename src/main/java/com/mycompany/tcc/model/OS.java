@@ -9,13 +9,14 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -32,11 +33,8 @@ public class OS{
     @Column(name = "cod_os_nominal")
     private String cod_os_nominal;
     
-    @Column(name = "cod_setor_serial")
-    private Integer cod_setor_serial;
-    
-    @Column(name = "cod_tipomanutencao_serial")
-    private Integer cod_TipoManutencao_serial;
+    //@Column(name = "cod_tipomanutencao_serial")
+    //private Integer cod_TipoManutencao_serial;
     
     @Column(name = "prioridade")
     private Integer prioriadade;
@@ -62,21 +60,55 @@ public class OS{
             inverseJoinColumns = @JoinColumn(name = "cod_ocorrencia_serial", referencedColumnName = "cod_ocorrencia_serial" ))
     private List<Ocorrencia> ocorrencias;
     
+        
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cod_setor_serial")
+    private Equipamento setor;
+    
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cod_tipomanutencao_serial")
+    private TipoManutencao tipoManutencao;
+    
+    
     public OS(){}
 
-    public OS(Integer cod_os_serial, String cod_os_nominal, Integer cod_setor_serial, Integer cod_TipoManutencao_serial, Integer prioriadade, String situacao, String observacao, List<Pendencia> pendencia, List<Ocorrencia> ocorrencias) {
+    public OS(Integer cod_os_serial, String cod_os_nominal, Equipamento setor, TipoManutencao tipoManutencao, Integer prioriadade, String situacao, String observacao, List<Pendencia> pendencia, List<Ocorrencia> ocorrencias) {
         this.cod_os_serial = cod_os_serial;
         this.cod_os_nominal = cod_os_nominal;
-        this.cod_setor_serial = cod_setor_serial;
-        this.cod_TipoManutencao_serial = cod_TipoManutencao_serial;
+        this.setor = setor;
+        //this.cod_TipoManutencao_serial = cod_TipoManutencao_serial;
         this.prioriadade = prioriadade;
         this.situacao = situacao;
         this.observacao = observacao;
         this.pendencias = pendencia;
         this.ocorrencias = ocorrencias;
-        
+        this.tipoManutencao = tipoManutencao; 
+      
     }
 
+    
+    public TipoManutencao getTipoManutencao() {
+        return tipoManutencao;
+    }
+
+    public void setTipoManutencao(TipoManutencao tipoManutencao) {
+        this.tipoManutencao = tipoManutencao;
+    }
+
+      
+    
+   
+    public Equipamento getSetor() {
+        return setor;
+    }
+
+    
+    public void setSetor(Equipamento setor) {
+        this.setor = setor;
+    }
+
+    
+    
     public List<Ocorrencia> getOcorrencias() {
         return ocorrencias;
     }
@@ -85,8 +117,6 @@ public class OS{
         this.ocorrencias = ocorrencias;
     }
 
-    
-    
     
     
     public List<Pendencia> getPendencias() {
@@ -115,21 +145,13 @@ public class OS{
         this.cod_os_nominal = cod_os_nominal;
     }
 
-    public Integer getCod_setor_serial() {
-        return cod_setor_serial;
-    }
-
-    public void setCod_setor_serial(Integer cod_setor_serial) {
-        this.cod_setor_serial = cod_setor_serial;
-    }
-
-    public Integer getCod_TipoManutencao_serial() {
+    /*public Integer getCod_TipoManutencao_serial() {
         return cod_TipoManutencao_serial;
     }
 
     public void setCod_TipoManutencao_serial(Integer cod_TipoManutencao_serial) {
         this.cod_TipoManutencao_serial = cod_TipoManutencao_serial;
-    }
+    }*/
 
     public Integer getPrioriadade() {
         return prioriadade;
@@ -155,8 +177,6 @@ public class OS{
        this.observacao = observacao;
     }
 
-    
-  
     
     
 }

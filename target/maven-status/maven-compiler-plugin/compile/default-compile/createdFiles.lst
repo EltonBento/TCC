@@ -2,4 +2,6 @@ com\mycompany\tcc\model\OS.class
 com\mycompany\tcc\model\Pendencia.class
 com\mycompany\tcc\Application.class
 com\mycompany\tcc\controller\OSController.class
+com\mycompany\tcc\model\Ocorrencia.class
+com\mycompany\tcc\model\Equipamento.class
 com\mycompany\tcc\controller\OSRepository.class

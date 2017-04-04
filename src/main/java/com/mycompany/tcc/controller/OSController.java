@@ -53,7 +53,7 @@ public class OSController {
         
      }
     
-    @RequestMapping(value = "/findBySetor")                    
+    /*@RequestMapping(value = "/findBySetor")                    
     public List<OS> findBySetorVersao(Integer cod_setor_serial, String observacao){
            TypedQuery<OS> query = manager
                 .createQuery(
@@ -62,7 +62,7 @@ public class OSController {
                         OS.class).setParameter("cod_setor_serial", cod_setor_serial).setParameter("observacao", observacao);
            List<OS> result = query.getResultList();
            return result;
-     }
+     }*/
     
     
        
