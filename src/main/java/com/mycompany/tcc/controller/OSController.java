@@ -21,19 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class OSController {
-    @Autowired
-    OSRepository repositorio;
-    
+     
     @PersistenceContext
     private EntityManager manager;
     
-    @RequestMapping(value = "/findAll") 
-    public List<OS> findall(){
-        return repositorio.findAll();
-    }
-    
-    
-    @RequestMapping(value = "/findTeste")                    
+  
+       
+    @RequestMapping(value= "/findAll")                    
     public List<OS> findTeste(){
         return manager.createQuery(
                 "select o from OS o",
@@ -45,7 +39,8 @@ public class OSController {
     public List<OS> findByObservacaoVersao(String observacao){
            TypedQuery<OS> query = manager
                 .createQuery(
-                        "select o from OS o where o.observacao like concat('%',:observacao,'%')",
+                        "select o from OS o where o.observacao like concat('%',:observacao,'%')"
+                                + "and o.situacao='F'",
                         OS.class).setParameter("observacao", observacao);
            List<OS> result = query.getResultList();
            return result;
@@ -53,17 +48,7 @@ public class OSController {
         
      }
     
-    /*@RequestMapping(value = "/findBySetor")                    
-    public List<OS> findBySetorVersao(Integer cod_setor_serial, String observacao){
-           TypedQuery<OS> query = manager
-                .createQuery(
-                        "select o from OS o where o.cod_setor_serial=:cod_setor_serial "
-                                + "and o.observacao like concat('%',:observacao,'%')",
-                        OS.class).setParameter("cod_setor_serial", cod_setor_serial).setParameter("observacao", observacao);
-           List<OS> result = query.getResultList();
-           return result;
-     }*/
-    
+       
     
        
 }
