@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.tcc.controller;
 
 import com.mycompany.tcc.model.OS;
@@ -11,7 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,6 +30,8 @@ public class OSController {
         
      }
     
+    //crossOrigem permite que outros serviços possam acessar essa api 
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/findByObservacaoVersao")                    
     public List<OS> findByObservacaoVersao(String observacao){
            TypedQuery<OS> query = manager
@@ -48,9 +45,7 @@ public class OSController {
         
      }
     
-       
-    
-       
+     
 }
     
 

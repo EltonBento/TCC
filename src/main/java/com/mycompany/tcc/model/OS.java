@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.tcc.model;
 
 import java.util.List;
@@ -33,18 +28,11 @@ public class OS{
     @Column(name = "cod_os_nominal")
     private String cod_os_nominal;
     
-    //@Column(name = "cod_tipomanutencao_serial")
-    //private Integer cod_TipoManutencao_serial;
-    
-    @Column(name = "prioridade")
-    private Integer prioriadade;
-    
     @Column(name = "situacao")
     private String situacao;
     
     @Column(name = "observacao")
     private String observacao;
-    
     
     
     @ManyToMany(cascade = CascadeType.ALL)
@@ -69,21 +57,22 @@ public class OS{
     @JoinColumn(name = "cod_tipomanutencao_serial")
     private TipoManutencao tipoManutencao;
     
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "prioridade")
+    private Prioridade prioridade;
     
     public OS(){}
 
-    public OS(Integer cod_os_serial, String cod_os_nominal, Equipamento setor, TipoManutencao tipoManutencao, Integer prioriadade, String situacao, String observacao, List<Pendencia> pendencia, List<Ocorrencia> ocorrencias) {
+    public OS(Integer cod_os_serial, String cod_os_nominal, Equipamento setor, TipoManutencao tipoManutencao, Prioridade prioriadade, String situacao, String observacao, List<Pendencia> pendencia, List<Ocorrencia> ocorrencias) {
         this.cod_os_serial = cod_os_serial;
         this.cod_os_nominal = cod_os_nominal;
         this.setor = setor;
-        //this.cod_TipoManutencao_serial = cod_TipoManutencao_serial;
-        this.prioriadade = prioriadade;
         this.situacao = situacao;
         this.observacao = observacao;
         this.pendencias = pendencia;
         this.ocorrencias = ocorrencias;
-        this.tipoManutencao = tipoManutencao; 
-      
+        this.tipoManutencao = tipoManutencao;
+        this.prioridade = prioriadade;
     }
 
     
@@ -95,9 +84,7 @@ public class OS{
         this.tipoManutencao = tipoManutencao;
     }
 
-      
-    
-   
+     
     public Equipamento getSetor() {
         return setor;
     }
@@ -108,7 +95,6 @@ public class OS{
     }
 
     
-    
     public List<Ocorrencia> getOcorrencias() {
         return ocorrencias;
     }
@@ -117,8 +103,6 @@ public class OS{
         this.ocorrencias = ocorrencias;
     }
 
-    
-    
     public List<Pendencia> getPendencias() {
         return pendencias;
     }
@@ -126,9 +110,7 @@ public class OS{
     public void setPendencias(List<Pendencia> pendencias) {
         this.pendencias = pendencias;
     }
-
     
-
     public Integer getCod_os_serial() {
         return cod_os_serial;
     }
@@ -145,24 +127,12 @@ public class OS{
         this.cod_os_nominal = cod_os_nominal;
     }
 
-    /*public Integer getCod_TipoManutencao_serial() {
-        return cod_TipoManutencao_serial;
+    public Prioridade getPrioridade() {
+        return prioridade;
     }
 
-    public void setCod_TipoManutencao_serial(Integer cod_TipoManutencao_serial) {
-        this.cod_TipoManutencao_serial = cod_TipoManutencao_serial;
-    }*/
-
-    public Integer getPrioriadade() {
-        return prioriadade;
-    }
-
-    public void setPrioriadade(Integer prioriadade) {
-        this.prioriadade = prioriadade;
-    }
-
-    public String getSituacao() {
-        return situacao;
+    public void setPrioridade(Prioridade prioridade) {
+        this.prioridade = prioridade;
     }
 
     public void setSituacao(String situacao) {
@@ -176,7 +146,5 @@ public class OS{
    public void setObservacao(String observacao) {
        this.observacao = observacao;
     }
-
-    
-    
+ 
 }

@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.tcc.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import java.util.List;
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -34,7 +25,6 @@ public class Equipamento {
     private String setordescricao;
     
     
-     
 
     public Equipamento(Integer cod_equipamento_serial, String cod_equipamento_nominal, String setordescricao) {
         this.cod_equipamento_serial = cod_equipamento_serial;
@@ -46,8 +36,6 @@ public class Equipamento {
     public Equipamento(){}
 
     
-    
-     
     
     public Integer getCod_equipamento_serial() {
         return cod_equipamento_serial;
@@ -73,7 +61,5 @@ public class Equipamento {
         this.setordescricao = setordescricao;
     }
     
-    
-    
-    
+        
 }
