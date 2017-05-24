@@ -15,3 +15,6 @@ public interface OSRepository extends JpaRepository<OS,String>{
     List<OS> findByVersion(String version);
     
 }
+
+
+//Select com join Select o from OS o join Equipamento e ON (e.cod_equipamento_serial = o.cod_equipamento_serial AND e.setor_int = 1)
