@@ -1,9 +1,11 @@
 package com.mycompany.tcc.model;
 
 
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -25,17 +27,20 @@ public class Equipamento {
     private String setordescricao;
     
     
+    @OneToMany(mappedBy = "setor")
+    private List<OS> listOS;
+    
+    
 
+    public Equipamento(){}
+    
     public Equipamento(Integer cod_equipamento_serial, String cod_equipamento_nominal, String setordescricao) {
         this.cod_equipamento_serial = cod_equipamento_serial;
         this.cod_equipamento_nominal = cod_equipamento_nominal;
         this.setordescricao = setordescricao;
     }
     
-    
-    public Equipamento(){}
-
-    
+        
     
     public Integer getCod_equipamento_serial() {
         return cod_equipamento_serial;
@@ -45,6 +50,7 @@ public class Equipamento {
         this.cod_equipamento_serial = cod_equipamento_serial;
     }
 
+    
     public String getCod_equipamento_nominal() {
         return cod_equipamento_nominal;
     }
@@ -53,6 +59,7 @@ public class Equipamento {
         this.cod_equipamento_nominal = cod_equipamento_nominal;
     }
 
+    
     public String getSetordescricao() {
         return setordescricao;
     }
@@ -60,6 +67,8 @@ public class Equipamento {
     public void setSetordescricao(String setordescricao) {
         this.setordescricao = setordescricao;
     }
+
+      
     
         
 }

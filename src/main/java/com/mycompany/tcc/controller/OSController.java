@@ -1,5 +1,6 @@
 package com.mycompany.tcc.controller;
 
+import com.mycompany.tcc.model.Equipamento;
 import com.mycompany.tcc.model.OS;
 
 import java.util.List;
@@ -46,6 +47,19 @@ public class OSController {
      }
     
      
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/setor")                    
+    public List<Equipamento> findBySetor(String observacao){
+       TypedQuery<Equipamento> query = manager
+               .createQuery("select distinct e from Equipamento e join e.listOS o on o.observacao like concat('%',:observacao,'%') "
+                        + "and o.situacao='F'",
+                       Equipamento.class).setParameter("observacao", observacao);
+           List<Equipamento> result = query.getResultList();
+          return result;
+       
+    }
+    
+    
 }
     
 

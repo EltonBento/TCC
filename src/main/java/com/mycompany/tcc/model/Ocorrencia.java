@@ -26,12 +26,14 @@ public class Ocorrencia {
     private List<OS> listOS;
     
 
+     public Ocorrencia(){}    
+    
     public Ocorrencia(Integer cod_ocorrencia_serial, String descricao) {
         this.cod_ocorrencia_serial = cod_ocorrencia_serial;
         this.descricao = descricao;
     }
     
-    public Ocorrencia(){}
+   
 
     public Integer getCod_ocorrencia_serial() {
         return cod_ocorrencia_serial;
