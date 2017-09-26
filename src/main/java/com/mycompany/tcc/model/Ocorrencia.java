@@ -22,10 +22,6 @@ public class Ocorrencia {
     @Column(name= "descricao")
     private String descricao;
     
-    @ManyToMany(mappedBy = "ocorrencias")
-    private List<OS> listOS;
-    
-
      public Ocorrencia(){}    
     
     public Ocorrencia(Integer cod_ocorrencia_serial, String descricao) {

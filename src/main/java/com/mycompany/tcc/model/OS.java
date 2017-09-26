@@ -21,8 +21,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "os")
 public class OS{
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer cod_os_serial;
     
     @Column(name = "cod_os_nominal")

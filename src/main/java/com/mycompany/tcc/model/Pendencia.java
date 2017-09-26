@@ -24,10 +24,6 @@ public class Pendencia{
     @Column(name = "descricao")
     private String descricao;
     
-    @ManyToMany(mappedBy = "pendencias")
-    private List<OS> listOS;
-    
-    
     public Pendencia(){}
     
     public Pendencia(Integer cod_pendencia_serial, String descricao) {

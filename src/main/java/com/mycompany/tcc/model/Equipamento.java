@@ -26,7 +26,7 @@ public class Equipamento {
     @Column(name= "setordescricao")
     private String setordescricao;
     
-    
+     
     @OneToMany(mappedBy = "setor")
     private List<OS> listOS;
     
