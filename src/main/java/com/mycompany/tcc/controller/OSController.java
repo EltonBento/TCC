@@ -2,6 +2,7 @@ package com.mycompany.tcc.controller;
 
 import com.mycompany.tcc.model.Equipamento;
 import com.mycompany.tcc.model.OS;
+import com.mycompany.tcc.model.OSPendencia;
 import com.mycompany.tcc.model.Ocorrencia;
 import com.mycompany.tcc.model.Pendencia;
 import com.mycompany.tcc.model.Prioridade;
@@ -11,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,8 +32,8 @@ public class OSController {
   
     //crossOrigem permite que outros serviços possam acessar essa api 
     @CrossOrigin(origins = "*")
-    @RequestMapping(value = "/findByObservacaoVersao")                    
-    public List<OS> findByObservacaoVersao(String observacao){
+    @RequestMapping(value = "/findOSByVersao")                    
+    public List<OS> findOSByVersao(String observacao){
            TypedQuery<OS> query = manager
                 .createQuery(
                         "select o from OS o where o.observacao like concat('%',:observacao,'%')"
@@ -43,8 +46,8 @@ public class OSController {
     
      
     @CrossOrigin(origins = "*")
-    @RequestMapping(value = "/setor")                    
-    public List<Equipamento> findBySetor(String observacao){
+    @RequestMapping(value = "/findSetorByVersao")                    
+    public List<Equipamento> findSetorByVersao(String observacao){
        TypedQuery<Equipamento> query = manager
                .createQuery("select distinct e from Equipamento e join e.listOS o on o.observacao like concat('%',:observacao,'%') "
                         + "and o.situacao='F'",
@@ -90,7 +93,7 @@ public class OSController {
     @RequestMapping(value = "/findOSByCodNominal")                    
     public OS findOSByCodNominal(String cod_os_nominal){
        TypedQuery<OS> query = manager
-               .createQuery("select o from OS o where o.cod_os_nominal=:cod_os_nominal", OS.class).setParameter("cod_os_nominal", cod_os_nominal);;
+               .createQuery("select o from OS o where o.cod_os_nominal=:cod_os_nominal", OS.class).setParameter("cod_os_nominal", cod_os_nominal);
            OS result = query.getSingleResult();
           return result;
     }
@@ -191,6 +194,40 @@ public class OSController {
            TipoManutencao result = query.getSingleResult();
           return result;
     }
+    
+    
+    @RequestMapping(value = "/DEeDRByOS")                    
+    public List<String> DEeDRByOS(){
+        String cod_os_serial="727";
+        String cod_pendencia_serial="29";
+        TypedQuery<OSPendencia> query = manager
+               .createQuery("SELECT op FROM OSPendencia op WHERE "
+                       + "op.cod_pendencia_serial=29",
+                       OSPendencia.class);
+           List<OSPendencia> result = query.getResultList();
+           
+          
+           
+           TypedQuery<OS> q;
+           List<String> lista = new ArrayList();
+           String strVazia="";
+           for(OSPendencia obj:result){
+               if(!strVazia.equals(obj.getObservacao()) && obj.getObservacao()!= null){
+                   if(obj.getObservacao().length()>=11){ 
+                       if(obj.getObservacao().substring(0,3).equals("DE=")){
+                           q = manager.createQuery("select o from OS o "
+                                + "where o.cod_os_serial=:cod_os_serial", OS.class)
+                                .setParameter("cod_os_serial",obj.getCod_os_serial());
+                           OS os= q.getSingleResult();
+                           lista.add(os.getCod_os_nominal()+"=>"+obj.getObservacao().substring(0,11));
+                       }
+                   }
+               }
+        }
+        return lista;
+    }
+    
+   
     
     
 }
